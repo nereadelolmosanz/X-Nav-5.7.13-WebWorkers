@@ -1,0 +1,18 @@
+body {
+  background-color: #F6E3CE;
+  text-align: center;
+}
+h1{
+  color: #3B0B17;
+}
+.message {
+  font-size: 1.2em;
+}
+.btn-default {
+  background-color: #F7D358;
+}
+#footer{
+  font-size: 0.75em;
+  text-align: right;
+  margin-right: 3%;
+}

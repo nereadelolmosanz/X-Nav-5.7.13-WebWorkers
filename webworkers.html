@@ -1,33 +1,36 @@
 <!DOCTYPE html>
 <html>
- <head>
-  <title>Ejercicio con WebWorkers</title>
-
-  <script>
-function buscarPrimos() {
-  var n = 1;
-  primelist = "";
-  search: while (n<parseInt(document.getElementById("formulario").input.value)) {
-    n += 1;
-    for (var i = 2; i <= Math.sqrt(n); i += 1)
-      if (n % i == 0)
-        continue search;
-    // found a prime!
-    primelist += " " + n;
-    document.getElementById('result').innerHTML = primelist;
-  }
-}
-  </script>
-
-
- </head>
- <body>
-  <form id="formulario" action="" method="POST">
-  Numero: <input type="text" name="input">
-  </form>
-  <button onclick="buscarPrimos()">Buscar primos</button>
-  <p>Los numeros primos hasta el numero dado son: <span id="result"></span></p>
-
-
- </body>
+  <head>
+  	<title>Ejercicio 5.7.13 - Webworkers</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="webworkers.css" type="text/css" media="screen" />
+    <script>
+      function findPrimes() {
+      	var worker = new Worker("worker.js");
+      	var n = document.getElementById('maxNum').value;
+      	var primeList = "";
+      	worker.postMessage(n);
+      	worker.onmessage = function(event) {
+          if (event.data != "END"){
+            primeList += event.data;
+      		  document.getElementById('result').innerHTML = primeList;
+          }else{
+      		  worker.terminate();
+          }
+      	}
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Ejercicio 5.7.13 - Webworkers</h1>
+  	<form class="message" action=" " method="POST">
+  		Número: <input id="maxNum" type="text" name="input">
+  	</form>
+  	<button class="btn-default" onclick="findPrimes()"> Buscar números primos </button>
+  	<p class="message"> Los números primos hasta el número dado son: <span id="result"> </span> </p>
+    <footer id="footer">
+      <p>&copy; Nerea Del Olmo Sanz, 2017 </p>
+    </footer>
+  </body>
 </html>
