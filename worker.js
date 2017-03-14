@@ -9,7 +9,7 @@ self.onmessage = function (event) {
 				continue search;
       }
 		  primeList += " " + n;
-      if (primeList.length > 499){
+      if (primeList.length > 99999){
         self.postMessage(primeList);
         primeList="";
       }
